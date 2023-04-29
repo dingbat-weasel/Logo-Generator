@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-import { writeFile } from "./lib/functions.js";
+
 
 inquirer
   .prompt([
@@ -37,8 +37,6 @@ inquirer
   ])
   .then((data) => {
     const initials = data.text.slice(0, 3);
-
     const filename = `${initials.toLowerCase()}_logo.svg`;
-
-    writeFile(filename);
+    fs.writeFile(filename, createSVG(data), (err) => err ? console.log(err) : console.log(`Successful write of ${filename}`));
   });
