@@ -1,6 +1,24 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
+const { SVG, Triangle, Circle, Square } = require("./lib/classes");
 
+createSVG = function (data) {
+  let shape;
+  switch (data.shape) {
+    case "circle":
+      shape = new Circle(data.shape_color);
+      break;
+    case "triangle":
+      shape = new Triangle(data.shape_color);
+      break;
+    case "square":
+      shape = new Square(data.shape_color);
+      break;
+  }
+
+  const svg = new SVG(shape, data.str, data.str_color);
+  return svg;
+};
 
 inquirer
   .prompt([
@@ -12,13 +30,13 @@ inquirer
     },
     {
       type: "input",
-      name: "text",
+      name: "str",
       message:
         "Please enter no more than three characters that you would like in the center of your logo:",
     },
     {
       type: "input",
-      name: "text_color",
+      name: "str_color",
       message:
         "Please enter a text color. You can name a color or enter a hex value (#fffff):",
     },
@@ -36,7 +54,10 @@ inquirer
     },
   ])
   .then((data) => {
-    const initials = data.text.slice(0, 3);
+    const initials = data.str.slice(0, 3);
     const filename = `${initials.toLowerCase()}_logo.svg`;
-    fs.writeFile(filename, createSVG(data), (err) => err ? console.log(err) : console.log(`Successful write of ${filename}`));
+
+    fs.writeFile(filename, createSVG(data), (err) =>
+      err ? console.log(err) : console.log(`Successful write of ${filename}`)
+    );
   });
