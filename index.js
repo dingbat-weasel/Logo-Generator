@@ -16,8 +16,8 @@ createSVG = function (data) {
       break;
   }
 
-  const svg = new SVG(shape, data.str, data.str_color);
-  return svg;
+  const svg = new SVG(shape, data.str.slice(0, 3), data.str_color);
+  return svg.render();
 };
 
 inquirer
@@ -54,10 +54,9 @@ inquirer
     },
   ])
   .then((data) => {
-    const initials = data.str.slice(0, 3);
-    const filename = `${initials.toLowerCase()}_logo.svg`;
+    const filename = `${data.str.slice(0, 3).toLowerCase()}_logo.svg`;
 
-    fs.writeFile(filename, createSVG(data), (err) =>
+    fs.writeFile(`./output/${filename}`, createSVG(data), (err) =>
       err ? console.log(err) : console.log(`Successful write of ${filename}`)
     );
   });
