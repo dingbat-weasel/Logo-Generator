@@ -22,7 +22,7 @@ This CLI will produce an SVG file consisting of a basic shape, either a triangle
 
 To use this application navigate into the main directory and run 'npm install'. Once the packages are installed you can run 'node index.js' to run the application. Follow the prompts and an svg file will be written to the './output' directory.
 
-![screenshot]('/examples/readme_screencap.JPG')
+![screenshot](/examples/readme_screencap.JPG)
 
 ## Installation
 
